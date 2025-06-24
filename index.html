@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/img/favicon.png" type="image/x-icon">
+    <title>Love</title>
+    <!-- Font Awesome Free CDN -->
+    <!-- Font Awesome 4.7.0 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body class="bg-rose-200 ">
+    <main>
+        <div class="w-full h-screen flex justify-center items-center">
+            <div id="content-1" class="w-fit h-fit">
+                <img id="image-content" class="w-[400px] h-[400px] object-contain mx-auto" src="/img/pic-1.png" alt="">
+                <h2 class="text-center p-5 text-3xl font-medium">
+                    <span id="question">Bạn có yêu hienai không?</span>
+                    <i class="fa fa-heart text-rose-500" aria-hidden="true"></i>
+                    <i class="fa fa-heart text-rose-500" aria-hidden="true"></i>
+                    <i class="fa fa-heart text-rose-500" aria-hidden="true"></i>
+                </h2>
+                <div id="group-button" class="button text-white m-auto flex flex-row gap-4 items-center justify-center">
+                    <button id="yes"
+                        class="inline-block h-fit bg-rose-400 hover:bg-rose-500 px-5 py-2 cursor-pointer rounded-xl duration-400">Có</button>
+                    <button id="no"
+                        class="inline-block h-fit bg-blue-500 hover:bg-blue-600 px-5 py-2 cursor-pointer rounded-xl">Không</button>
+                </div>
+            </div>
+            <div id="content-2" class="hidden">
+                <h2 class="text-center p-5 text-3xl font-medium">
+                    <span>Mình biết sẽ như vậy mà (>.<) </span>
+                    <i class="fa fa-heart text-rose-500" aria-hidden="true"></i>
+                    <i class="fa fa-heart text-rose-500" aria-hidden="true"></i>
+                    <i class="fa fa-heart text-rose-500" aria-hidden="true"></i>
+                </h2>
+                <img class="w-full" src="/img/cat-1.png" alt="err">
+            </div>
+        </div>
+    </main>
+</body>
+<script>
+    let scale = 1;
+    let index = 0;
+    let arrNo = ['Bạn nghiêm túc chứ...', 'Nghĩ lại đi mà', 'Không được chọn cái này', 'Mình sẽ buồn lắm đó', 'Không được... :((', 'Đừng chọn nữa mà... T.T'];
+    let arrImg = ['pic-2', 'pic-3', 'pic-4', 'pic-5', 'pic-6', 'pic-7'];
+    
+    $(document).ready(function () {
+        const w = $('#yes').innerWidth();
+        const h = $('#yes').innerHeight();
+
+        function resizeBox() {
+            const baseWidth = w;
+            const baseHeight = h;
+
+            $('#yes').css({
+                'width': (baseWidth * scale) + 'px',
+                'height': (baseHeight * scale) + 'px',
+            });
+            $('#yes').css('font-size', (16 * scale) + 'px');
+        }
+
+        $('#no').on('click', function () {
+            scale = scale * 1.5;
+            index++;
+            index > 6 ? index = 6 : false;
+            $(this).text(arrNo[index]);
+            resizeBox();
+            this.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            $('#image-content').attr('src', '/img/' + arrImg[index-1] + '.png');
+        });
+
+        $('#yes').on('click', function () {
+            scale = 1;
+            resizeBox();
+            this.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            $('#content-1').addClass('hidden');
+            $('#content-2').removeClass('hidden');
+        });
+    });
+</script>
+
+</html>
